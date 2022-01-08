@@ -44,11 +44,15 @@ class MovieDetailsViewController: UIViewController, MovieDetailsViewControllerPr
         if data.id == nil || data.id == 0 {
             
         }else{
-        let urlString = Constant.urlImage + (data.backdrop_path)!
+            if data.backdrop_path != nil && data.backdrop_path != ""{
+                let urlString = Constant.urlImage + (data.backdrop_path ?? "")
+                imageMovie.load(urlString: urlString)
+            }else{
+                imageMovie.image = UIImage(named: "not-found-image-15383864787lu")
+            }
+        
         var languageText = ""
         var companyText = ""
-        print("urlstring", urlString)
-        imageMovie.load(urlString: urlString)
         titleMovie.text = data.title
         dateMovie.text = data.release_date
         descriptionMovie.text = data.overview
